@@ -4,6 +4,4 @@ export interface Item{
 
 export enum ItemCategory { 
     CAKE,
-    BOOK,
-    TOY,
 }

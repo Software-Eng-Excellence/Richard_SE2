@@ -1,5 +1,7 @@
 import { Item, ItemCategory } from "./item.model";
-
+//type Type = "birthday" | "wedding" | "anniversary" | "custom";
+//type is ts is same as enum in java that define withy only type i needed for this object
+//enum in
 export class CAKE implements Item {
   
     constructor(
