@@ -1,0 +1,113 @@
+{"level":"error","message":"CSV file not found at path: ./data/cake_orders.csv","timestamp":"2025-08-18T15:16:34.046Z"}
+{"level":"error","message":"CSV file not found at path: ./data/cake_orders.csv","timestamp":"2025-08-18T15:17:01.438Z"}
+{"level":"error","message":"CSV file not found at path: cake_orders.csv","timestamp":"2025-08-18T15:17:24.987Z"}
+{"level":"error","message":"CSV file not found at path: ./cake_orders.csv","timestamp":"2025-08-18T15:17:32.615Z"}
+{"level":"error","message":"CSV file not found at path: ./src/data/cake_orders.csv","timestamp":"2025-08-18T15:17:45.726Z"}
+{"level":"error","message":"CSV file not found at path: cake_orders.csv","timestamp":"2025-08-18T15:18:08.138Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:33:29.010Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:35:20.002Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:35:21.883Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:39:44.715Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:40:22.523Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:40:25.188Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:40:36.700Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:40:50.389Z"}
+{"level":"error","message":"CSV file not found at path: C:\\Users\\User\\Downloads\\SE2-Assignments-Assignment1\\SE2-Assignments-Assignment1\\src\\parsers\\cake_orders.csv","timestamp":"2025-08-18T15:41:14.729Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:41:14.742Z"}
+{"level":"error","message":"CSV file not found at path: ","timestamp":"2025-08-18T15:41:28.971Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:41:28.986Z"}
+{"level":"error","message":"Error while reading the file %s: %o","timestamp":"2025-08-18T15:41:31.822Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:41:31.825Z"}
+{"level":"error","message":"CSV file not found at path: src/cak","timestamp":"2025-08-18T15:41:34.379Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:41:34.394Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:41:35.541Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:44:47.689Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:45:36.004Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:45:38.259Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:45:41.582Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:45:48.387Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:45:51.517Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:45:54.987Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:45:56.124Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:45:58.052Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:46:47.101Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:46:59.375Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:47:00.890Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:47:13.306Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:47:24.723Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:47:58.260Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:48:04.439Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:48:18.307Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:48:30.262Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:48:38.930Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:49:18.014Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:52:33.562Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:52:58.334Z"}
+{"level":"error","message":"Failed to load or map cakes: %o","timestamp":"2025-08-18T15:56:45.176Z"}
+{"level":"info","message":"List of cakes: %o","timestamp":"2025-08-18T15:57:43.337Z"}
+{"level":"info","message":"List of cakes: %o","timestamp":"2025-08-18T16:00:18.906Z"}
+{"level":"info","message":"List of cakes: %o","timestamp":"2025-08-18T16:00:27.690Z"}
+{"level":"info","message":"List of cakes: %o","timestamp":"2025-08-18T16:06:44.090Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-18T17:43:19.471Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-18T17:48:44.614Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-18T17:48:57.799Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-18T17:52:12.273Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-18T17:52:24.675Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-18T17:53:43.895Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-18T17:53:45.507Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-18T17:53:51.110Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T06:06:24.498Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T07:22:08.063Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T07:26:55.323Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T07:27:25.029Z"}
+{"level":"info","message":"%o","timestamp":"2025-08-19T08:24:30.439Z"}
+{"level":"info","message":"%o","timestamp":"2025-08-19T08:27:52.541Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T08:28:07.364Z"}
+{"level":"error","message":"Error parsing XML file %s: %o","timestamp":"2025-08-19T08:32:56.670Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T08:32:56.673Z"}
+{"level":"error","message":"Error parsing XML file %s: %o","timestamp":"2025-08-19T08:34:11.377Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T08:34:11.380Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T08:36:45.430Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T08:37:19.975Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T08:38:25.952Z"}
+{"level":"warn","message":"No orders found in parsed XML: %o","timestamp":"2025-08-19T08:40:19.500Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T08:57:36.261Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T08:58:10.703Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T08:58:29.591Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T08:58:31.612Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T08:58:34.138Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T08:59:14.253Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T09:07:13.785Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T09:08:01.287Z"}
+{"level":"info","message":"Parsed XML data: %o","timestamp":"2025-08-19T09:08:02.538Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T09:08:02.562Z"}
+{"level":"info","message":"Parsed XML data: %o","timestamp":"2025-08-19T09:08:52.912Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:08:52.929Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:09:28.784Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:09:40.103Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:12:32.688Z"}
+{"level":"info","message":"List of orders (%d): %o","timestamp":"2025-08-19T09:13:31.931Z"}
+{"level":"info","message":"List of orders (%d): %o","timestamp":"2025-08-19T09:14:31.879Z"}
+{"level":"info","message":"Parsed XML top-level keys: %o","timestamp":"2025-08-19T09:14:31.884Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:14:37.063Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:15:27.315Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:15:37.748Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:17:58.228Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:18:16.578Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:21:15.594Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:26:38.935Z"}
+{"level":"info","message":"List of toys: %o","timestamp":"2025-08-19T09:26:59.382Z"}
+{"level":"info","message":"List of toys: %o","timestamp":"2025-08-19T09:26:59.462Z"}
+{"level":"info","message":"List of toys: %o","timestamp":"2025-08-19T09:27:03.159Z"}
+{"level":"info","message":"List of toys: %o","timestamp":"2025-08-19T09:27:08.333Z"}
+{"level":"info","message":"List of toys: %o","timestamp":"2025-08-19T09:28:33.758Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T09:33:28.912Z"}
+{"level":"error","message":"Failed to load or map orders: %o","timestamp":"2025-08-19T09:34:00.414Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T09:35:01.624Z"}
+{"level":"error","message":"CSV file not found at path: notfound.csv","timestamp":"2025-08-19T10:30:08.288Z"}
+{"level":"error","message":"CSV file not found at path: notfound.csv","timestamp":"2025-08-19T10:30:49.999Z"}
+{"level":"error","message":"CSV file not found at path: notfound.csv","timestamp":"2025-08-19T10:32:49.852Z"}
+{"level":"error","message":"CSV file not found at path: notfound.csv","timestamp":"2025-08-19T12:57:03.263Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T15:31:42.521Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T15:31:55.112Z"}
+{"level":"info","message":"List of orders: %o","timestamp":"2025-08-19T15:32:55.698Z"}
