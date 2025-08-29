@@ -34,3 +34,7 @@ Flexible repository system with interfaces for easy extension.
 Builder pattern for constructing objects step by step.
 
 Clear separation of concerns between persistence, domain models, and builders.
+<br><br>
+![image1](images-github/UML-1.png)
+<br><br>
+![image2](images-github/UML-2.png)
