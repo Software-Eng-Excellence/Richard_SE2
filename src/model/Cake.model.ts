@@ -1,11 +1,13 @@
-import { IItem, ItemCategory } from "./IItem";
+import { ID, id } from "../repository/IRepository";
+import { IIdentifiableItem, IItem, ItemCategory } from "./IItem";
 //type Type = "birthday" | "wedding" | "anniversary" | "custom";
 //type is ts is same as enum in java that define which only type i needed for this object
+
 
 export class Cake implements IItem {
   
     constructor(
-        id: number,
+       
         type: string,
         flavor: string,
         filling: string,
@@ -20,10 +22,9 @@ export class Cake implements IItem {
         Allergies: string,
         SpecialIngredients: string,
         PackagingType: string,
-        price: number,
-        quantity: number
+      
     ) {
-        this.id = id;
+        
         this.type = type;
         this.flavor = flavor;
         this.filling = filling;
@@ -38,11 +39,10 @@ export class Cake implements IItem {
         this.Allergies = Allergies;
         this.SpecialIngredients = SpecialIngredients;
         this.PackagingType = PackagingType;
-        this.price = price;
-        this.quantity = quantity;
+      
     }
      
-    private id: number;
+  
     private type: string;
     private flavor: string;
     private filling: string;
@@ -57,16 +57,13 @@ export class Cake implements IItem {
     private Allergies: string;
     private SpecialIngredients: string;
     private PackagingType: string;
-    private price: number;
-    private quantity: number;
+   
 
     getCategory(): ItemCategory {
         return ItemCategory.CAKE;
     }
 
-    getId(): number {
-        return this.id;
-    }
+    
 
     getType(): string {
         return this.type;
@@ -124,11 +121,53 @@ export class Cake implements IItem {
     getPackagingType(): string {
         return this.PackagingType;
     }
-    getPrice(): number {
-        return this.price;
-    }
-    getQuantity(): number {
-        return this.quantity;
-    }
+ 
+}
 
+
+export class IdentifiableCake extends Cake implements IIdentifiableItem{
+    constructor(
+        private id: id,
+        type: string,
+        flavor: string,
+        filling: string,
+        size: number,
+        layers: number,
+        frostingType: string,
+        frostingFlavor: string,
+        decorationType: string,
+        decorationColor: string,
+        customMessage: string,
+        shape: string,
+        Allergies: string,
+        SpecialIngredients: string,
+        PackagingType: string
+    ) {
+        super(
+    
+            type,
+            flavor,
+            filling,
+            size,
+            layers,
+            frostingType,
+            frostingFlavor,
+            decorationType,
+            decorationColor,
+            customMessage,
+            shape,
+            Allergies,
+            SpecialIngredients,
+            PackagingType
+        );
+    }
+    getItem(): IItem {
+        throw new Error("Method not implemented.");
+    }
+   
+      
+
+    getId(): id {
+        return this.id;
+    }
 }

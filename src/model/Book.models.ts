@@ -1,10 +1,11 @@
-import { IItem, ItemCategory } from "./IItem";
+import { id } from "../repository/IRepository";
+import {IIdentifiableItem, IItem, ItemCategory } from "./IItem";
 
 
 export class Book implements IItem {
 
 
-    private orderId: number;
+ 
     private bookTitle: string;
     private author: string;
     private genre: string;
@@ -13,11 +14,11 @@ export class Book implements IItem {
     private publisher: string;
     private specialEdition: string;
     private packaging: string;
-    private price: number;
-    private quantity: number;
 
-    constructor(orderId: number, bookTitle: string, author: string, genre: string, format: string, language: string, publisher: string, specialEdition: string, packaging: string, price: number, quantity: number) {
-        this.orderId = orderId;
+
+
+    constructor(bookTitle: string, author: string, genre: string, format: string, language: string, publisher: string, specialEdition: string, packaging: string) {
+        
         this.bookTitle = bookTitle;
         this.author = author;
         this.genre = genre;
@@ -26,17 +27,14 @@ export class Book implements IItem {
         this.publisher = publisher;
         this.specialEdition = specialEdition;
         this.packaging = packaging;
-        this.price = price;
-        this.quantity = quantity;
+
     }
 
     getCategory(): ItemCategory {
         return ItemCategory.BOOK;
     }
 
-    getOrderId(): number {
-        return this.orderId;
-    }
+    
 
     getBookTitle(): string {
         return this.bookTitle;
@@ -70,12 +68,6 @@ export class Book implements IItem {
         return this.packaging;
     }
 
-    getPrice(): number {
-        return this.price;
-    }
 
-    getQuantity(): number {
-        return this.quantity;
-    }
 
 }

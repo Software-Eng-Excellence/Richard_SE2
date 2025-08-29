@@ -1,6 +1,6 @@
-import { IItem } from "../IItem";
-import { IOrder } from "../IOrder";
-import { Order } from "../Order.model";
+import { IIdentifiableItem, IItem } from "../IItem";
+import { IIdentifiableOrderItem } from "../IOrder";
+import { IdentifiableOrderItem, Order } from "../Order.model";
 export class OrderBuilder{
     private items!: IItem;
     private price!: number;
@@ -31,7 +31,7 @@ export class OrderBuilder{
         return this;
     }
 
-    build(): IOrder {
+    build(): Order {
         const required=[
             this.items,
             this.price,
@@ -52,6 +52,48 @@ export class OrderBuilder{
             this.price,
             this.quantity,
             this.id
-        )
+        );
     }
+}
+
+export class IdentifiableOrderItemBuilder{
+    private items!: IIdentifiableItem;
+    private order!: Order;
+ 
+     
+     static newBuilder(): IdentifiableOrderItemBuilder {
+         return new IdentifiableOrderItemBuilder();
+     }
+
+     setItems(items: IIdentifiableItem): IdentifiableOrderItemBuilder {
+         this.items = items;
+         return this;
+     }
+
+     setOrder(order: Order): IdentifiableOrderItemBuilder {
+         this.order = order;
+         return this;
+     }
+
+     build(): IIdentifiableOrderItem {
+         const required=[
+             this.items,
+             this.order
+           
+         ];
+         for (const prop of required) {
+             if (prop === undefined || prop === null) {
+                 throw new Error("Missing required order property");
+             }
+         }
+
+         return new IdentifiableOrderItem(
+             this.items,
+             this.order.getPrice(),
+             this.order.getQuantity(),
+             this.order.getId()
+         );
+
+     }
+
 }

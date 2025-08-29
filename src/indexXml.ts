@@ -1,5 +1,5 @@
 import { XMLToyMapper } from "./mappers/Toy.mappers";
-import { XMLOrderMapper } from "./mappers/OrderXML.mappers";
+import { OrderXMLMapper } from "../src/mappers/OrderXML.mappers";
 import { parseXML } from "./parsers/xmlParser";
 import logger from "./util/logger";
 
@@ -10,7 +10,7 @@ async function mainXML() {
         const rows = Array.isArray(data.data.row) ? data.data.row : [data.data.row];
 
         const toyMapper = new XMLToyMapper();
-        const orderMapper = new XMLOrderMapper(toyMapper);
+        const orderMapper = new OrderXMLMapper(toyMapper);
 
        
        const orders = rows.map(orderMapper.map.bind(orderMapper));

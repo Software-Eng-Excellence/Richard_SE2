@@ -7,11 +7,6 @@ export async function main1() {
   try{
   const data = await parseJSON('src/data/book_orders.json');
 
-  // if (Array.isArray(data)) {
-  //   data.forEach((row, i) => logger.info("Row %d: %o", i + 1, row));
-  // } else {
-  //   logger.info("Parsed object: %o", data);
-  // }
   const bookMapper  = new JSONBookMapper();
   const orderMapper = new JSONOrderMapper(bookMapper);
   const orders = Array.isArray(data) ? data.map(orderMapper.map.bind(orderMapper)) : [];

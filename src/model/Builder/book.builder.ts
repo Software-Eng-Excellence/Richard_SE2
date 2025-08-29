@@ -2,7 +2,7 @@ import {Book} from '../Book.models'
 
 export class BookBuilder{
    
-    private orderId!: number;
+    
     private bookTitle!: string;
     private author!: string;
     private genre!: string;
@@ -11,19 +11,12 @@ export class BookBuilder{
     private publisher!: string;
     private specialEdition!: string;
     private packaging!: string;
-    private price!: number;
-    private quantity!: number;
-
+   
 
     public static newBuilder(): BookBuilder {
         return new BookBuilder();
     }
 
-
-    setOrderId(orderId: number): BookBuilder {
-        this.orderId = orderId;
-        return this;
-    }
 
     setBookTitle(bookTitle: string): BookBuilder {
         this.bookTitle = bookTitle;
@@ -65,19 +58,11 @@ export class BookBuilder{
         return this;
     }
 
-    setPrice(price: number): BookBuilder {
-        this.price = price;
-        return this;
-    }
-
-    setQuantity(quantity: number): BookBuilder {
-        this.quantity = quantity;
-        return this;
-    }
+   
 
     build(): Book {
        const required=[
-           this.orderId,
+          
            this.bookTitle,
            this.author,
            this.genre,
@@ -86,8 +71,7 @@ export class BookBuilder{
            this.publisher,
            this.specialEdition,
            this.packaging,
-           this.price,
-           this.quantity
+           
        ]
           for (const prop of required) {
             if (prop === undefined || prop === null) {
@@ -95,7 +79,7 @@ export class BookBuilder{
             }
         }
        return new Book(
-           this.orderId,
+          
            this.bookTitle,
            this.author,
            this.genre,
@@ -104,8 +88,7 @@ export class BookBuilder{
            this.publisher,
            this.specialEdition,
            this.packaging,
-           this.price,
-           this.quantity
+          
        );
 
     }

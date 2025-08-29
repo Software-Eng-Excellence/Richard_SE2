@@ -1,8 +1,9 @@
-import { Cake } from "../Cake.model";
+import logger from "../../util/logger";
+import { Cake, IdentifiableCake } from "../Cake.model";
 
 export class CakeBuilder {
 
-    private id!: number;
+   
     private type!: string;
     private flavor!: string;
     private filling!: string;
@@ -17,17 +18,12 @@ export class CakeBuilder {
     private Allergies!: string;
     private SpecialIngredients!: string;
     private PackagingType!: string;
-    private price !: number;
-    private quantity!: number;
+    
 
     public static newBuilder(): CakeBuilder {
         return new CakeBuilder();
     }
 
-    setId(id: number): CakeBuilder {
-        this.id = id;
-        return this;
-    }
     setType(type: string): CakeBuilder {
         this.type = type;
         return this;
@@ -84,18 +80,11 @@ export class CakeBuilder {
         this.PackagingType = PackagingType;
         return this;
     }
-    setPrice(price: number): CakeBuilder {
-        this.price = price;
-        return this;
-    }
-    setQuantity(quantity: number): CakeBuilder {
-        this.quantity = quantity;
-        return this;
-    }
+ 
 
     build(): Cake {
         const required = [
-            this.id,
+         
             this.type,
             this.flavor,
             this.filling,
@@ -107,8 +96,7 @@ export class CakeBuilder {
             this.decorationColor,
             this.shape,
             this.PackagingType,
-            this.price,
-            this.quantity
+           
         ];
         for (const prop of required) {
             if (prop === undefined || prop === null) {
@@ -116,7 +104,7 @@ export class CakeBuilder {
             }
         }
         return new Cake(
-            this.id,
+          
             this.type,
             this.flavor,
             this.filling,
@@ -131,9 +119,57 @@ export class CakeBuilder {
             this.Allergies,
             this.SpecialIngredients,
             this.PackagingType,
-            this.price,
-            this.quantity
+        
         );
     }
 
+}
+
+export class IdentifiableCakeBuilder extends CakeBuilder {
+    private id!: string;
+    private cake!: Cake;
+
+
+   
+     static newBuilder(): IdentifiableCakeBuilder {
+        return new IdentifiableCakeBuilder();
+    }
+
+   setCake(cake: Cake):IdentifiableCakeBuilder
+   {
+       this.cake = cake;
+      return this;
+       
+   }
+     setId(id: string) : IdentifiableCakeBuilder{
+        this.id=id;
+        return this;
+
+    }
+
+   build(): IdentifiableCake {
+    if(!this.id || !this.cake) {
+        logger.error("Missing required properties");
+        throw new Error("Missing required properties");
+    }
+    return new IdentifiableCake(
+        this.id,
+        this.cake.getType(),
+        this.cake.getFlavor(),
+        this.cake.getFilling(),
+        this.cake.getSize(),      
+        this.cake.getLayers(),
+        this.cake.getFrostingType(),
+        this.cake.getFrostingFlavor(),
+        this.cake.getDecorationType(),
+        this.cake.getDecorationColor(),
+        this.cake.getCustomMessage(),
+        this.cake.getShape(),
+        this.cake.getAllergies(),
+        this.cake.getSpecialIngredients(),
+        this.cake.getPackagingType()
+    );
+
+
+}
 }

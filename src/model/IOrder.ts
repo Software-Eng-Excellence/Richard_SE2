@@ -1,8 +1,12 @@
-import { IItem } from "./IItem";
+import { id, ID } from "../repository/IRepository";
+import {IIdentifiableItem, IItem } from "./IItem";
 
 export interface IOrder{
-    getItems(): IItem;
+    getItem(): IItem;
     getPrice(): number;
     getQuantity(): number;
-    getId(): string;
+    getId(): id;
+}
+export interface IIdentifiableOrderItem extends IOrder, ID {
+    getItem(): IIdentifiableItem;
 }

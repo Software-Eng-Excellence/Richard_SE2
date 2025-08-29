@@ -5,7 +5,7 @@ import logger from "../util/logger";
 // CSV inside src folder
 const defaultCsvPath = path.join(__dirname, "cake_orders.csv");
 
-export const parseCSV = (filePath: string = defaultCsvPath): Promise<string[][]> => {
+export const readCSVFile = (filePath: string = defaultCsvPath): Promise<string[][]> => {
     return new Promise((resolve, reject) => {
         const results: string[][] = [];
 
@@ -31,5 +31,37 @@ export const parseCSV = (filePath: string = defaultCsvPath): Promise<string[][]>
             reject(error);
         });
     });
+    
 };
-
+export const writeCSVFile = (filePath: string, data: string[][]): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        try {
+            // Convert data array to CSV format
+            const csvContent = data.map(row =>
+                row.map(cell =>
+                        // Handle cells with commas by wrapping in quotes
+                        cell.includes(',') ? `"${cell}"` : cell
+                    ).join(',')
+                ).join('\n');
+                
+                // Write to file
+                const writeStream = fs.createWriteStream(filePath);
+                
+                writeStream.write(csvContent);
+                writeStream.end();
+                
+                writeStream.on('finish', () => {
+                    logger.info(`CSV file successfully written to ${filePath}`);
+                    resolve();
+                });
+                
+                writeStream.on('error', (error) => {
+                    logger.error(`Error writing CSV file to ${filePath}: %o`, error);
+                    reject(error);
+                });
+            } catch (error) {
+                logger.error(`Error preparing CSV data: %o`, error);
+                reject(error);
+            }
+        });
+};

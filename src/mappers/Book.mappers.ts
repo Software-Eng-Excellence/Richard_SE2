@@ -4,10 +4,10 @@ import { BookBuilder } from "../model/Builder/book.builder";
 
 
 
-export class JSONBookMapper implements IMapper<JSON, Book> {
-    map(data: JSON): Book {
+export class JSONBookMapper implements IMapper<object, Book> {
+    map(data: object): Book {
          const [
-            orderId,
+         
            bookTitle,
            author,
            genre,
@@ -16,12 +16,10 @@ export class JSONBookMapper implements IMapper<JSON, Book> {
            publisher,
            specialEdition,
            packaging,
-           price,
-           quantity
          ] = Object.values(data);
 
         return BookBuilder.newBuilder()
-               .setOrderId(orderId )
+               
                .setAuthor(author)
                .setBookTitle(bookTitle)
                .setGenre(genre)
@@ -30,8 +28,20 @@ export class JSONBookMapper implements IMapper<JSON, Book> {
                .setPublisher(publisher)
                .setSpecialEdition(specialEdition)
                .setPackaging(packaging)
-               .setPrice(price)
-               .setQuantity(quantity)
+               
                .build();
     }
+   reverse(data: Book): object {
+      return {
+         
+         bookTitle: data.getBookTitle(),
+         author: data.getAuthor(),
+         genre: data.getGenre(),
+         format: data.getFormat(),
+         language: data.getLanguage(),
+         publisher: data.getPublisher(),
+         specialEdition: data.getSpecialEdition(),
+         packaging: data.getPackaging()
+      };
+   }
 }

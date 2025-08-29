@@ -1,4 +1,6 @@
-import { IItem, ItemCategory } from "./IItem";
+import { id } from "../repository/IRepository";
+import { IIdentifiableItem, IItem, ItemCategory } from "./IItem";
+
 
 
 export class Toy implements IItem {
@@ -56,4 +58,17 @@ export class Toy implements IItem {
         return this.quantity;
     }
 
+}
+export class IdentifiableToy implements IIdentifiableItem{
+    constructor(private id:id, private item:IItem) {
+    }
+    getCategory(): ItemCategory {
+        throw new Error("Method not implemented.");
+    }
+    getItem(): IItem {
+        return this.item
+    }
+    getId(): id {
+        return this.id
+    }
 }

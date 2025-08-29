@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/indexXml.ts",
+    "dev": "ts-node-dev --respawn src/indexCSV.ts",
     "test": "jest"
   },
   "devDependencies": {
@@ -18,6 +18,10 @@
   },
   "dependencies": {
     "-": "^0.0.1",
+    "@types/dotenv": "^6.1.1",
+    "dotenv": "^17.2.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
     "winston": "^3.17.0",
     "xml2js": "^0.6.2"
   }
