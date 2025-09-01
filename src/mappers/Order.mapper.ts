@@ -69,3 +69,37 @@ export class SQLiteOrderMapper implements IMapper<{data:SQLiteOrder,item:IIdenti
        }
     }
 }
+
+
+export interface PostgresOrder{
+    id:string;
+    item_category:string;
+    item_id:string;
+    price:number;
+    quantity:number;
+}
+
+export class PostgresOrderMapper implements IMapper<{data:PostgresOrder,item:IIdentifiableItem}, IIdentifiableOrderItem>{
+
+   map({data,item}: {data:PostgresOrder,item:IIdentifiableItem}): IIdentifiableOrderItem {
+        const order=OrderBuilder.newBuilder().setId(data.id)
+        .setPrice(data.price)
+        .setQuantity(data.quantity)
+        .setItems(item)
+        .build();
+        return IdentifiableOrderItemBuilder.newBuilder().setOrder(order).setItems(item).build();
+    }
+    
+    reverse(data:IIdentifiableOrderItem): {data:PostgresOrder,item:IIdentifiableItem}{
+       return{
+           data: {
+               id: data.getId(),
+               item_category: data.getItem().getCategory(),
+               item_id: data.getItem().getId(),
+               price: data.getPrice(),
+               quantity: data.getQuantity()
+           },
+           item: data.getItem()
+       }
+    }
+}

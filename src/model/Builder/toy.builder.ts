@@ -1,7 +1,8 @@
+import { id } from "../../repository/IRepository";
 import {Toy} from "../Toy.models";
-
+import { IdentifiableToy } from "../Toy.models";
 export class ToyBuilder {
-    private orderID!: number;
+
     private type!: string;
     private ageGroup!: number;
     private brand!: string;
@@ -15,10 +16,7 @@ export class ToyBuilder {
         return new ToyBuilder();
     }
 
-    setOrderID(orderID: number): ToyBuilder {
-        this.orderID = orderID;
-        return this;
-    }
+   
 
     setType(type: string): ToyBuilder {
         this.type = type;
@@ -62,7 +60,7 @@ export class ToyBuilder {
 
     build(): Toy {
         const requiredKeys = [
-            'orderID',
+        
             'type',
             'ageGroup',
             'brand',
@@ -80,7 +78,7 @@ export class ToyBuilder {
         }
 
         return new Toy(
-            this.orderID,
+         
             this.type,
             this.ageGroup,
             this.brand,
@@ -89,6 +87,40 @@ export class ToyBuilder {
             this.educational,
             this.price,
             this.quantity
+        );
+    }
+}
+export class IdentifiableToyBuilder extends ToyBuilder{
+    private id!: id;
+    private toy!: Toy;
+
+    static newBuilder(): IdentifiableToyBuilder {
+        return new IdentifiableToyBuilder();
+    }
+
+    setId(id: id): IdentifiableToyBuilder {
+        this.id = id;
+        return this;
+    }
+    setToy(toy: Toy): IdentifiableToyBuilder {
+        this.toy = toy;
+        return this;
+    }
+
+    build(): IdentifiableToy {
+        if(!this.toy || !this.id){
+            throw new Error("Missing required toy properties");
+        }
+        return new IdentifiableToy(
+            this.id,
+            this.toy.getType(),
+            this.toy.getAgeGroup(),
+            this.toy.getBrand(),
+            this.toy.getMaterial(),
+            this.toy.getBatteryRequired(),
+            this.toy.getEducational(),
+            this.toy.getPrice(),
+            this.toy.getQuantity()
         );
     }
 }

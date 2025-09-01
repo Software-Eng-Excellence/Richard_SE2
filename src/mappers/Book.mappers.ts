@@ -45,3 +45,4 @@ export class JSONBookMapper implements IMapper<object, Book> {
       };
    }
 }
+

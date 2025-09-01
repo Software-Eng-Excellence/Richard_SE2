@@ -24,7 +24,7 @@ export class JSONOrderMapper implements IMapper<object, IOrder> {
             price: data.getPrice()
         };
         
-        const itemData = this.itemMapper.reverse(data.getItems());
+        const itemData = this.itemMapper.reverse(data.getItem());
         return { ...orderData, ...itemData };
     }
 }

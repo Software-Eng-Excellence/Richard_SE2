@@ -2,7 +2,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import logger from "../util/logger";
-import { parseCSV } from "../parsers/csvParser";
+import  {readCSVFile}  from "../parsers/csvParser";
 
 
 jest.mock("../util/logger", () => ({
@@ -11,7 +11,7 @@ jest.mock("../util/logger", () => ({
 }));
 
 
-describe("parseCSV", () => {
+describe("readCSVFileCSV", () => {
   const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "csvParser-tests-"));
   const createdFiles: string[] = [];
 
@@ -38,7 +38,7 @@ describe("parseCSV", () => {
     ].join("\n");
     const fp = writeTempCSV(csv);
 
-    const rows = await parseCSV(fp);
+    const rows = await readCSVFile(fp);
 
     expect(rows).toEqual([
       ["id", "name", "price"],
@@ -51,7 +51,7 @@ describe("parseCSV", () => {
     const csv = ["name,age", "", "   ", "Alice,30", "\n"].join("\n");
     const fp = writeTempCSV(csv);
 
-    const rows = await parseCSV(fp);
+    const rows = await readCSVFile(fp);
 
     expect(rows).toEqual([
       ["name", "age"],
@@ -62,7 +62,7 @@ describe("parseCSV", () => {
   it("rejects when file does not exist and logs an error", async () => {
     const missing = path.join(tmpRoot, "does-not-exist.csv");
 
-    await expect(parseCSV(missing)).rejects.toThrow(/CSV file not found/);
+    await expect(readCSVFile(missing)).rejects.toThrow(/CSV file not found/);
 
     expect((logger as any).default?.error || (logger as any).error).toHaveBeenCalled();
     const loggedArg =

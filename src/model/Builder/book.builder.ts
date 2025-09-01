@@ -1,6 +1,10 @@
-import {Book} from '../Book.models'
+import { id } from '../../repository/IRepository';
+import {Book, IdentifiableBook} from '../Book.models'
 
 export class BookBuilder{
+    setPublicationDate(arg0: Date) {
+      throw new Error('Method not implemented.');
+    }
    
     
     private bookTitle!: string;
@@ -92,4 +96,40 @@ export class BookBuilder{
        );
 
     }
+}
+export class IdentifiableBookBuilder extends BookBuilder{
+    private id!: id;
+    private book!: Book;
+
+
+    
+    static newBuilder(): IdentifiableBookBuilder {
+        return new IdentifiableBookBuilder();
+    }
+
+    setId(id:id): IdentifiableBookBuilder {
+        this.id = id;
+        return this;
+    }
+    setBook(book: Book): IdentifiableBookBuilder {
+        this.book = book;
+        return this;
+    }
+    build(): IdentifiableBook {
+        if(!this.book || !this.id){
+            throw new Error("Missing required book properties");
+        }
+        return new IdentifiableBook(
+            this.id,
+            this.book.getBookTitle(),
+            this.book.getAuthor(),
+            this.book.getGenre(),
+            this.book.getFormat(),
+            this.book.getLanguage(),
+            this.book.getPublisher(),
+            this.book.getSpecialEdition(),
+            this.book.getPackaging(),
+           
+        );
+    }   
 }

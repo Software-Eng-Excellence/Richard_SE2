@@ -4,7 +4,6 @@ import logger from "../../util/logger";
 import { DbException, InitializationException } from "../../util/exceptions/repositoryException";
 import { ConnectionManager } from "./ConnectionManager";
 import { IIdentifiableItem } from "../../model/IItem";
-import { log } from "console";
 import { SQLiteOrder, SQLiteOrderMapper } from "../../mappers/Order.mapper";
 
 

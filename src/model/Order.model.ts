@@ -1,4 +1,4 @@
-import { IdentifiableCake } from "./Cake.model";
+
 import { IIdentifiableItem, IItem } from "./IItem";
 import { IOrder } from "./IOrder";
 

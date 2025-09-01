@@ -8,5 +8,6 @@ export interface IOrder{
     getId(): id;
 }
 export interface IIdentifiableOrderItem extends IOrder, ID {
+   
     getItem(): IIdentifiableItem;
 }

@@ -11,7 +11,16 @@ export default{
     csv:{
       cake: "src/data/cake_orders.csv"
     },
-    sqlite: "src/data/order.db"
+    sqlite: "src/data/order.db",
+    postgres:{
+      user: "neondb_owner",
+      password: "npg_67hQpqzDkSZe",
+      host: "ep-nameless-surf-a2av6285-pooler.eu-central-1.aws.neon.tech",
+      database: "neondb",
+      ssl: {
+        rejectUnauthorized: false
+      }
+    }
   }
 
 

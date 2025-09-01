@@ -1,3 +1,5 @@
+import { IdentifiableBook ,Book} from "../model/Book.models";
+import { BookBuilder, IdentifiableBookBuilder } from "../model/Builder/book.builder";
 import { CakeBuilder, IdentifiableCakeBuilder } from "../model/Builder/cake.builder";
 import { Cake, IdentifiableCake } from "../model/Cake.model";
 import { IMapper } from "./IMapper";
@@ -108,6 +110,121 @@ export class SqliteCakeMapper implements IMapper<SQLiteCake, IdentifiableCake> {
             allergies: data.getAllergies(),
             specialIngredients: data.getSpecialIngredients(),
             packagingType: data.getPackagingType()
+        };
+    }
+}
+
+
+
+export interface PostgresCake {
+    id: string;
+    type: string;
+    flavor: string;
+    filling: string;
+    size: number;
+    layers: number;
+    frostingType: string;
+    frostingFlavor: string;
+    decorationType: string;
+    decorationColor: string;
+    customMessage: string;
+    shape: string;
+    allergies: string;
+    specialIngredients: string;
+    packagingType: string;
+}
+
+export class PostgresCakeMapper implements IMapper<PostgresCake, IdentifiableCake> {
+    map(data: PostgresCake | any): IdentifiableCake {
+       
+        
+        return IdentifiableCakeBuilder.newBuilder()
+            .setCake(CakeBuilder.newBuilder()
+                .setType(data.type)
+                .setFlavor(data.flavor)
+                .setFilling(data.filling)
+                .setSize(data.size)
+                .setLayers(data.layers)
+                .setFrostingType(data.frostingType || data.frostingtype)
+                .setFrostingFlavor(data.frostingFlavor || data.frostingflavor)
+                .setDecorationType(data.decorationType || data.decorationtype)
+                .setDecorationColor(data.decorationColor || data.decorationcolor)
+                .setCustomMessage(data.customMessage || data.custommessage)
+                .setShape(data.shape)
+                .setAllergies(data.allergies)
+                .setSpecialIngredients(data.specialIngredients || data.specialingredients)
+                .setPackagingType(data.packagingType || data.packagingtype)
+                .build())
+            .setId(data.id)     
+            .build();
+    }
+
+    reverse(data: IdentifiableCake): PostgresCake {
+        
+        return {
+            id: data.getId(),
+            type: data.getType(),
+            flavor: data.getFlavor(),
+            filling: data.getFilling(),
+            size: data.getSize(),
+            layers: data.getLayers(),
+            frostingType: data.getFrostingType(),
+            frostingFlavor: data.getFrostingFlavor(),
+            decorationType: data.getDecorationType(),
+            decorationColor: data.getDecorationColor(),
+            customMessage: data.getCustomMessage(),
+            shape: data.getShape(),
+            allergies: data.getAllergies(),
+            specialIngredients: data.getSpecialIngredients(),
+            packagingType: data.getPackagingType()
+        };
+    }
+}
+// Add to Book.mappers.ts or create a new file
+
+export interface PostgresBook {
+     id: string;
+     booktitle: string;
+     author: string;
+     genre: string;
+     format: string;
+     language: string;
+     publisher: string;
+     specialEdition: string;
+     packaging: string;
+  
+}
+
+export class PostgresBookMapper implements IMapper<PostgresBook, IdentifiableBook> {
+    map(data: PostgresBook | any): IdentifiableBook {
+      
+        return IdentifiableBookBuilder.newBuilder()
+            .setBook(BookBuilder.newBuilder()
+                .setAuthor(data.author)
+                .setBookTitle(data.booktitle)
+                .setFormat(data.format)
+                .setGenre(data.genre)
+                .setLanguage(data.language)
+                .setPackaging(data.packaging)
+                .setPublisher(data.publisher)
+                .setSpecialEdition(data.specialEdition)
+                .build())
+            .setId(data.id)     
+            .build();
+    }
+
+    reverse(data: IdentifiableBook): PostgresBook {
+        return {
+         id: data.getId(),
+         booktitle: data.getBookTitle(),
+         author: data.getAuthor(),
+         genre: data.getGenre(),
+         format: data.getFormat(),
+         language: data.getLanguage(),
+         publisher: data.getPublisher(),
+         packaging: data.getPackaging(),
+         specialEdition: data.getSpecialEdition()
+
         };
     }
 }

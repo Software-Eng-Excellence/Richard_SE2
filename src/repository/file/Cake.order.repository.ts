@@ -66,6 +66,7 @@ export class CakeOrderRepository extends OrderRepository{
     }
 }
 export interface SQLiteCake {
+      
       id:string;
       type:string;
       flavor:string;

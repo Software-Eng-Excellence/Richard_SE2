@@ -6,7 +6,6 @@ import { IIdentifiableItem, IItem, ItemCategory } from "./IItem";
 export class Toy implements IItem {
 
 
-    private orderID: number;
     private type: string;
     private ageGroup: number;
     private brand: string;
@@ -16,8 +15,8 @@ export class Toy implements IItem {
     private price: number;
     private quantity: number;
 
-    constructor(orderID: number, type: string, ageGroup: number, brand: string, material: string, batteryRequired: boolean, educational: boolean, price: number, quantity: number) {
-        this.orderID = orderID;
+    constructor(type: string, ageGroup: number, brand: string, material: string, batteryRequired: boolean, educational: boolean, price: number, quantity: number) {
+    
         this.type = type;
         this.ageGroup = ageGroup;
         this.brand = brand;
@@ -30,9 +29,7 @@ export class Toy implements IItem {
     getCategory(): ItemCategory {
         return ItemCategory.TOY;
     }
-    getOrderID(): number {
-        return this.orderID;
-    }
+   
     getType(): string {
         return this.type;
     }
@@ -45,10 +42,10 @@ export class Toy implements IItem {
     getMaterial(): string {
         return this.material;
     }
-    isBatteryRequired(): boolean {
+    getBatteryRequired(): boolean {
         return this.batteryRequired;
     }
-    isEducational(): boolean {
+    getEducational(): boolean {
         return this.educational;
     }
     getPrice(): number {
@@ -59,16 +56,17 @@ export class Toy implements IItem {
     }
 
 }
-export class IdentifiableToy implements IIdentifiableItem{
-    constructor(private id:id, private item:IItem) {
+export class IdentifiableToy extends Toy implements IIdentifiableItem{
+    constructor(private id:id,type: string, ageGroup: number, brand: string, material: string, batteryRequired: boolean, educational: boolean, price: number, quantity: number) {
+        super( type, ageGroup, brand, material, batteryRequired, educational, price, quantity);
     }
-    getCategory(): ItemCategory {
-        throw new Error("Method not implemented.");
-    }
+    // getCategory(): ItemCategory {
+    //     throw new Error("Method not implemented.");
+    // }
     getItem(): IItem {
-        return this.item
+        return this;
     }
     getId(): id {
-        return this.id
+        return this.id;
     }
 }

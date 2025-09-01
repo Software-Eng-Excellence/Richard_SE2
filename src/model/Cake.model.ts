@@ -162,8 +162,9 @@ export class IdentifiableCake extends Cake implements IIdentifiableItem{
         );
     }
     getItem(): IItem {
-        throw new Error("Method not implemented.");
+        return this;
     }
+
    
       
 

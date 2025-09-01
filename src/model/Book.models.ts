@@ -71,3 +71,30 @@ export class Book implements IItem {
 
 
 }
+
+
+export class IdentifiableBook extends Book implements IIdentifiableItem {
+    getTitle(): string {
+        throw new Error("Method not implemented.");
+    }
+    constructor(
+        private id: id,
+        bookTitle: string,
+        author: string,
+        genre: string,
+        format: string,
+        language: string,
+        publisher: string,
+        specialEdition: string,
+        packaging: string
+    ) {
+        super(bookTitle, author, genre, format, language, publisher, specialEdition, packaging);
+    }
+    getItem(): IItem {
+        return this;
+    }
+    getId(): id {
+        return this.id;
+    }
+    
+}

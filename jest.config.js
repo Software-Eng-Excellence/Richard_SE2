@@ -3,7 +3,7 @@ const config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   roots: ['<rootDir>/src/tests'],
-  testMatch: ['<rootDir>/src/tests/**/*.ts'],
+  testMatch: ['<rootDir>/src/**/tests/**/*.ts'],
   testPathIgnorePatterns: ["/node_modules/"],
   verbose: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],

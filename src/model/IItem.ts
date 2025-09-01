@@ -8,7 +8,7 @@ export interface IIdentifiableItem extends IItem, ID{
 
 }
 export enum ItemCategory { 
-    CAKE ='cake',
-    BOOK ='book',
-    TOY ='toy',
+    CAKE = "cake",
+    BOOK = "book",
+    TOY = "toy",
 }
