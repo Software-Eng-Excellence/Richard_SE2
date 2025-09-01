@@ -24,7 +24,7 @@ const SELECT_ALL = `SELECT * FROM ${tableName}`;
 const DELETE_BY_ID = `DELETE FROM ${tableName} WHERE id = $1`;
 const UPDATE_ORDER = `UPDATE ${tableName} SET type = $1, ageGroup = $2, brand = $3, material = $4, batteryRequired = $5, educational = $6, price = $7, quantity = $8 WHERE id = $9`;
 
-export class ToyOrderRepository implements IRepository<IdentifiableToy>, Initializable {
+export class ToyRepository implements IRepository<IdentifiableToy>, Initializable {
     async init() {
         try {
             const conn = await ConnectionManager.getConnection();

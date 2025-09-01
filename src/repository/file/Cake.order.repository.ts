@@ -1,5 +1,4 @@
 
-import { CSVCakeMapper } from "../../mappers/Cake.mappers";
 import { CSVOrderMapper } from "../../mappers/Order.mapper";
 import { IOrder } from "../../model/IOrder";
 import { OrderRepository } from "./Order.repository";
@@ -8,12 +7,15 @@ import { DbException } from "../../util/exceptions/repositoryException";
 import { IMapper } from "../../mappers/IMapper";
 import { Cake, IdentifiableCake } from "../../model/Cake.model";
 import { CakeBuilder, IdentifiableCakeBuilder } from "../../model/Builder/cake.builder";
+import { ItemCategory } from "../../model/IItem";
+import { MapperFactory, MapperType } from "../../mappers/Mapper.factory";
 
 
 
 
 export class CakeOrderRepository extends OrderRepository{
-    private mapper = new CSVOrderMapper(new CSVCakeMapper());
+    private cakeMapper = MapperFactory.createMapper<string[], Cake>(MapperType.CSV, ItemCategory.CAKE);
+    private mapper = new CSVOrderMapper(this.cakeMapper as any);
     constructor(private readonly filePath: string) {
         super();
     }
@@ -52,7 +54,7 @@ export class CakeOrderRepository extends OrderRepository{
             "specialIngredients",
             "packagingType"
         ];
-        const rawItems = orders.map(o => new CSVCakeMapper().reverse(o as any));
+        const rawItems = orders.map(o => this.cakeMapper.reverse(o as any));
         return writeCSVFile(this.filePath, [header, ...rawItems]);
 
         }

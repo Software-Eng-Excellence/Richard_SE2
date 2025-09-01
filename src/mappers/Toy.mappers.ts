@@ -1,5 +1,5 @@
-import { ToyBuilder } from "../model/Builder/toy.builder";
-import { Toy } from "../model/Toy.models";
+import { IdentifiableToyBuilder, ToyBuilder } from "../model/Builder/toy.builder";
+import { IdentifiableToy, Toy } from "../model/Toy.models";
 import { IMapper } from "./IMapper";
 
 export class XMLToyMapper implements IMapper<XMLDocument, Toy> {
@@ -21,7 +21,7 @@ export class XMLToyMapper implements IMapper<XMLDocument, Toy> {
         const quantity = this.getTagValue(data, "Quantity");
 
         return ToyBuilder.newBuilder()
-            .setOrderID(orderID ? Number(orderID) : 0)
+            
             .setType(type || "")
             .setAgeGroup(ageGroupText ? Number(ageGroupText) : 0)
             .setBrand(brand || "")
@@ -36,13 +36,13 @@ export class XMLToyMapper implements IMapper<XMLDocument, Toy> {
     reverse(data: Toy): XMLDocument {
         const xmlString = `
             <Toy>
-                <OrderID>${data.getOrderID()}</OrderID>
+               
                 <Type>${data.getType()}</Type>
                 <AgeGroup>${data.getAgeGroup()}</AgeGroup>
                 <Brand>${data.getBrand()}</Brand>
                 <Material>${data.getMaterial()}</Material>
-                <BatteryRequired>${data.isBatteryRequired()}</BatteryRequired>
-                <Educational>${data.isEducational()}</Educational>
+                <BatteryRequired>${data.getBatteryRequired()}</BatteryRequired>
+                <Educational>${data.getEducational()}</Educational>
                 <Price>${data.getPrice()}</Price>
                 <Quantity>${data.getQuantity()}</Quantity>
             </Toy>`;
@@ -50,4 +50,51 @@ export class XMLToyMapper implements IMapper<XMLDocument, Toy> {
         const parser = new DOMParser();
         return parser.parseFromString(xmlString, "application/xml");
     }
+}
+export interface PostgresToy {
+    id: string;
+    type: string;
+    ageGroup: number;
+    brand: string;
+    material: string;
+    batteryRequired: boolean;
+    educational: boolean;
+    price: number;
+    quantity: number;
+}
+
+export class PostgresToyMapper implements IMapper<PostgresToy, Toy> {
+
+    map(data: PostgresToy): IdentifiableToy {
+        return IdentifiableToyBuilder.newBuilder()
+        .setToy(
+            ToyBuilder.newBuilder()
+                .setType(data.type)
+                .setAgeGroup(data.ageGroup)
+                .setBrand(data.brand)
+                .setMaterial(data.material)
+                .setBatteryRequired(data.batteryRequired)
+                .setEducational(data.educational)
+                .setPrice(data.price)
+                .setQuantity(data.quantity)
+                .build()
+        )
+        .setId(data.id)
+        .build();
+    }
+
+    reverse(data: IdentifiableToy): PostgresToy {
+        return {
+            id: data.getId(),
+            type: data.getType(),
+            ageGroup: data.getAgeGroup(),
+            brand: data.getBrand(),
+            material: data.getMaterial(),
+            batteryRequired: data.getBatteryRequired(),
+            educational: data.getEducational(),
+            price: data.getPrice(),
+            quantity: data.getQuantity()
+        };
+    }
+
 }

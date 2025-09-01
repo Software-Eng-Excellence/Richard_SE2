@@ -3,9 +3,9 @@ import { id, Initializable, IRepository } from "../IRepository";
 import logger from "../../util/logger";
 import { DbException, InitializationException } from "../../util/exceptions/repositoryException";
 import { ConnectionManager } from "./ConnectionMananger";
-import { IIdentifiableItem } from "../../model/IItem";
+import { IIdentifiableItem, ItemCategory } from "../../model/IItem";
 import { PostgresOrder, PostgresOrderMapper } from "../../mappers/Order.mapper";
-import { IdentifiableCake } from "../../model/Cake.model";
+
 
 const CREATE_TABLE = `
     CREATE TABLE IF NOT EXISTS "order" (

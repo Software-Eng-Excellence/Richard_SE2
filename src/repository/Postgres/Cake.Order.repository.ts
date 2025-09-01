@@ -4,7 +4,8 @@ import { DbException, InitializationException, ItemNotFoundException } from "../
 import logger from "../../util/logger";
 import  {ConnectionManager}  from "./ConnectionMananger";
 import { ItemCategory } from "../../model/IItem";
-import { PostgresCake, PostgresCakeMapper } from "../../mappers/Cake.mappers";
+import { PostgresCake } from "../../mappers/Cake.mappers";
+import { MapperFactory, MapperType } from "../../mappers/Mapper.factory";
 
 const tableName = ItemCategory.CAKE;
 logger.info(`Using table: ${tableName}`);
@@ -108,7 +109,8 @@ export class CakeRepository implements IRepository<IdentifiableCake>, Initializa
                 throw new ItemNotFoundException(`Cake with ID ${id} not found`);
               }
              
-              return new PostgresCakeMapper().map(result.rows[0]);
+              const mapper = MapperFactory.createMapper<PostgresCake, IdentifiableCake>(MapperType.POSTGRES, ItemCategory.CAKE);
+              return mapper.map(result.rows[0]);
         } catch(error){
             logger.error("Failed to get cake of id %o %o", id, error as Error)
             throw new DbException("Failed to get cake id"+id, error as Error);   
@@ -119,7 +121,7 @@ export class CakeRepository implements IRepository<IdentifiableCake>, Initializa
           try{
               const client = await ConnectionManager.getConnection();
               const result = await client.query(SELECT_ALL);
-              const mapper = new PostgresCakeMapper();
+              const mapper = MapperFactory.createMapper<PostgresCake, IdentifiableCake>(MapperType.POSTGRES, ItemCategory.CAKE);
               return result.rows.map((cake: PostgresCake) => mapper.map(cake));
         } catch(error){
             logger.error("Failed to get all cakes")
