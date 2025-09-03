@@ -1,9 +1,6 @@
 import { Item, ItemCategory } from "./item.model";
-//type Type = "birthday" | "wedding" | "anniversary" | "custom";
-//type is ts is same as enum in java that define withy only type i needed for this object
-//enum in
-export class CAKE implements Item {
-  
+import { Order } from "./Order.model";
+export class Cake implements Item {
     constructor(
         id: number,
         type: string,
@@ -37,7 +34,7 @@ export class CAKE implements Item {
     private frostingFlavor: string;
     private decoration: string;
     private notes: string;
-      getCategory(): ItemCategory {
+    getCategory(): ItemCategory {
         return ItemCategory.CAKE;
     }
 
@@ -81,3 +78,10 @@ export class CAKE implements Item {
         return this.notes;
     }
 }   
+
+
+
+
+// Polymorphism usecase
+const cake = new Cake(1, 'birthday', 'chocolate', 'vanilla', 'medium', 2, 'buttercream', 'chocolate', 'sprinkles', 'Happy Birthday!');
+const order = new Order(cake, 100, 1, '123');
