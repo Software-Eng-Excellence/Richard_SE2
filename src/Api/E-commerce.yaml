@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: E-commerce Api
+  version: 1.0.0
+  description: >
+    API for providing business intelligence on sales, customers, and product performance.
+
+servers:
+  - url: https://api.your-ecommerce.com/v1
+    description: Production server
+
+paths:
+  /orders/count:
+    get:
+      summary: Get order counts
+      description: >
+        Returns the total number of orders, or a breakdown by item type depending on the query parameter.
+      parameters:
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum: [total, byItemType]
+            default: total
+          description: >
+            `total` → total number of orders.  
+            `byItemType` → number of orders grouped by item type.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      totalOrders:
+                        type: integer
+                        example: 1245
+                  - type: object
+                    properties:
+                      ordersByItemType:
+                        type: object
+                        additionalProperties:
+                          type: integer
+                        example:
+                          cakes: 320
+                          books: 450
+                          clothing: 475
+        '500':
+          description: Internal server error
+
+  /revenue:
+    get:
+      summary: Get revenue
+      description: >
+        Returns total revenue or a breakdown by item type.
+      parameters:
+        - in: query
+          name: scope
+          schema:
+            type: string
+            enum: [total, byItemType]
+            default: total
+          description: >
+            `total` → total revenue.  
+            `byItemType` → revenue grouped by item type.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    properties:
+                      totalRevenue:
+                        type: number
+                        format: float
+                        example: 34500.75
+                  - type: object
+                    properties:
+                      revenueByItemType:
+                        type: object
+                        additionalProperties:
+                          type: number
+                          format: float
+                        example:
+                          cakes: 12000.50
+                          books: 10000.25
+                          clothing: 12500.00
+        '404':
+          description: Revenue not found
+        '500':
+          description: Internal server error
+
+  /customers/top-spenders:
+    get:
+      summary: Get top-spending customers
+      description: Returns a list of top 5 customers by total purchase amount.
+      responses:
+        '200':
+          description: Successful response with top customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    customerId:
+                      type: string
+                      example: "A123"
+                    name:
+                      type: string
+                      example: "Richard Geagea"
+                    totalSpent:
+                      type: number
+                      format: float
+                      example: 1200.50
+        '404':
+          description: Customers not found
+        '500':
+          description: Internal server error
