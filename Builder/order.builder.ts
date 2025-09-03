@@ -38,7 +38,7 @@ export class OrderBuilder{
             this.quantity,
             this.id
         ];
-  
+
         for (const prop of required) {
             if (prop === undefined || prop === null) {
                 throw new Error("Missing required order property");
