@@ -2,9 +2,11 @@ import { JSONBookMapper } from './mappers/Book.mappers';
 import { JSONOrderMapper } from './mappers/OrderJson.mapper';
 import { BookBuilder, IdentifiableBookBuilder } from './model/Builder/book.builder';
 import { IdentifiableOrderItemBuilder, OrderBuilder } from './model/Builder/order.builder';
+import { ItemCategory } from './model/IItem';
 import { parseJSON } from './parsers/jsonParser';
 import { BookRepository } from './repository/Postgres/Book.Order.repository';
 import { OrderRepositoryPostgres } from './repository/Postgres/Order.repository';
+import { DBMode, RepositoryFactory } from './repository/Repository.factory';
 
 
 // export async function main1() {
@@ -26,10 +28,9 @@ import { OrderRepositoryPostgres } from './repository/Postgres/Order.repository'
   // main1();
 
 
-export async  function DBMode() {
-   const dbOrder = new OrderRepositoryPostgres(new BookRepository()); // Use your Postgres CakeRepository if available
-    await dbOrder.init();
-  
+export async  function JsonPostgres() {
+    const dbOrder =await RepositoryFactory.create(DBMode.POSTGRES, ItemCategory.BOOK);
+
     // Create your cake and order objects as before
     const bookId = `book-${Math.random().toString(36).substr(2, 9)}`;
     const orderId = `order-${Math.random().toString(36).substr(2, 9)}`;
@@ -60,7 +61,7 @@ export async  function DBMode() {
   
 
 }
-DBMode()
+JsonPostgres()
   .then(() => {
     console.log("DBMode completed successfully");
   })

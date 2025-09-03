@@ -3,10 +3,12 @@ import { OrderXMLMapper } from "../src/mappers/OrderXML.mappers";
 import { parseXML } from "./parsers/xmlParser";
 import logger from "./util/logger";
 import { OrderRepository } from "./repository/file/Order.repository";
-import { ToyOrderRepository } from "./repository/Postgres/Toy.Order.repository";
+
 import { IdentifiableToyBuilder, ToyBuilder } from "./model/Builder/toy.builder";
 import { IdentifiableOrderItemBuilder, OrderBuilder } from "./model/Builder/order.builder";
 import { OrderRepositoryPostgres } from "./repository/Postgres/Order.repository";
+import { DBMode, RepositoryFactory } from "./repository/Repository.factory";
+import { ItemCategory } from "./model/IItem";
 
 // async function mainXML() {
 //     try {
@@ -26,9 +28,9 @@ import { OrderRepositoryPostgres } from "./repository/Postgres/Order.repository"
 // }
 
 // mainXML();
-export async function DBMode() {
-    const dbOrder = new OrderRepositoryPostgres(new ToyOrderRepository());
-    await dbOrder.init();
+export async function XmlPostgres() {
+     const dbOrder =await RepositoryFactory.create(DBMode.POSTGRES, ItemCategory.CAKE);
+    
 
     // Create your toy and order objects as before
     const toyId = `toy-${Math.random().toString(36).substr(2, 9)}`;
@@ -60,4 +62,4 @@ export async function DBMode() {
 
 }
 // Call the function
-DBMode();
+XmlPostgres();

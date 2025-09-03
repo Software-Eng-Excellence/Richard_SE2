@@ -79,11 +79,14 @@ import { OrderRepositoryPostgres } from "./repository/Postgres/Order.repository"
 import {CakeRepository} from "./repository/Postgres/Cake.Order.repository";
 import { CakeBuilder, IdentifiableCakeBuilder } from "./model/Builder/cake.builder";
 import { IdentifiableOrderItemBuilder, OrderBuilder } from "./model/Builder/order.builder";
-// ...other imports...
+import { DBMode, RepositoryFactory } from "./repository/Repository.factory";
+import { ItemCategory } from "./model/IItem";
 
 async function addOrderToPostgres() {
-  const dbOrder = new OrderRepositoryPostgres(new CakeRepository()); // Use your Postgres CakeRepository if available
-  await dbOrder.init();
+  // const dbOrder = new OrderRepositoryPostgres(new CakeRepository()); 
+  // await dbOrder.init();
+
+  const dbOrder =await RepositoryFactory.create(DBMode.POSTGRES, ItemCategory.CAKE);
 
   // Create your cake and order objects as before
   const cakeId = `cake-${Math.random().toString(36).substr(2, 9)}`;

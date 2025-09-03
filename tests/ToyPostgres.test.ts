@@ -1,9 +1,9 @@
-import { ToyOrderRepository } from "../repository/Postgres/Toy.Order.repository";
+import { ToyRepository } from "../repository/Postgres/Toy.Order.repository";
 import { ConnectionManager } from "../repository/Postgres/ConnectionMananger";
 import { IdentifiableToy } from "../model/Toy.models";
 import { DbException, InitializationException, ItemNotFoundException } from "../util/exceptions/repositoryException";
 import { Client } from "pg";
-import logger from "../util/logger";
+
 
 jest.mock("../repository/Postgres/ConnectionMananger");
 
@@ -50,10 +50,10 @@ const nullToy = new IdentifiableToy(
 );
 
 describe("ToyOrderRepository", () => {
-    let repo: ToyOrderRepository;
+    let repo: ToyRepository;
 
     beforeEach(() => {
-        repo = new ToyOrderRepository();
+        repo = new ToyRepository();
         jest.clearAllMocks();
     });
 
