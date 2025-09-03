@@ -1,22 +1,23 @@
-import { parseXML } from './parsers/xmlParser';
-import logger from './util/logger';
+import { XMLToyMapper } from "./mappers/Toy.mappers";
+import { OrderXMLMapper } from "../src/mappers/OrderXML.mappers";
+import { parseXML } from "./parsers/xmlParser";
+import logger from "./util/logger";
 
-export async function mainXML() {
-  try {
-    const data = await parseXML('src/data/toy_orders.xml');
-    
-   
-    console.log(data);
-    logger.info("%o", data);
+async function mainXML() {
+    try {
+        const data = await parseXML("src/data/toy_orders.xml");
+       
+        const rows = Array.isArray(data.data.row) ? data.data.row : [data.data.row];
 
-    return data; 
-  } catch (err) {
-    logger.error(err);
-    throw err; 
-  }
+        const toyMapper = new XMLToyMapper();
+        const orderMapper = new OrderXMLMapper(toyMapper);
+
+       
+       const orders = rows.map(orderMapper.map.bind(orderMapper));
+        logger.info("List of orders: %o", orders);
+    } catch (error) {
+        logger.error("Failed to load or map orders: %o", error);
+    }
 }
 
-
-if (require.main === module) {
-  mainXML();
-}
+mainXML();
