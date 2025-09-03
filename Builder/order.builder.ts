@@ -38,9 +38,7 @@ export class OrderBuilder{
             this.quantity,
             this.id
         ];
-        // if(!this.items || !this.price || !this.quantity || !this.id){
-        //     throw new Error("Missing required Order fields");
-        // }
+  
         for (const prop of required) {
             if (prop === undefined || prop === null) {
                 throw new Error("Missing required order property");
