@@ -7,6 +7,8 @@ dotenv.config({
 export default{
   logDir: process.env.LOG_DIR || "./logs",
   isDev: process.env.NODE_ENV === "development",
+  port:process.env.PORT ?  parseInt(process.env.PORT ) : 3000,
+  host: process.env.HOST || "localhost",
   Storage:{
     csv:{
       cake: "src/data/cake_orders.csv"
