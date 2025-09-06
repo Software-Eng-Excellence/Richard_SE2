@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import requestLogger from "./middleware/requestLogger";
 import routes from "./routes";
-import { ApiException } from "./util/ApiException";
+import { HttpException } from "./util/exceptions/http/HttpException";
 
 
 
@@ -37,10 +37,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-if(err instanceof ApiException) {
-  const apiException = err as ApiException;
-  logger.error("API Exception of status %d: %s", apiException.status, err.message);
-  res.status(apiException.status).json({ error:err.message });
+if(err instanceof HttpException) {
+  const httpException = err as HttpException;
+  logger.error("%s [%d] \"%s\" %o", httpException.name, httpException.status, httpException.message, httpException.details || {});
+  res.status(httpException.status).json({ message: httpException.message, details: httpException.details || undefined});
 
 }
 else{

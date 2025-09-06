@@ -95,6 +95,10 @@ components:
         id:
           type: string
           example: "12345"
+        category:
+          type: string
+          enum:
+            - Cake
         item:
           oneOf:
             - $ref: '#/components/schemas/Cake'
