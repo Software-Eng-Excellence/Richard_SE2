@@ -1,6 +1,5 @@
 import { IdentifiableCake } from "../../model/Cake.model";
 import { id, Initializable, IRepository } from "../IRepository";
-import { Database } from "sqlite3";
 import { DbException, InitializationException, ItemNotFoundException } from "../../util/exceptions/repositoryException";
 import logger from "../../util/logger";
 import { ConnectionManager } from "./ConnectionManager";
@@ -11,9 +10,9 @@ import { SQLiteCake, SqliteCakeMapper } from "../file/Cake.order.repository";
 
 
 const tableName = ItemCategory.CAKE;
-logger.info(`Using table: ${tableName}`);
+//logger.info(`Using table1: ${tableName}`);
 const CREATE_TABLE = `CREATE TABLE IF NOT EXISTS ${tableName}(
-    id TEXT PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY,
     type TEXT NOT NULL,
     flavor TEXT NOT NULL,
     filling TEXT NOT NULL,
@@ -132,7 +131,6 @@ async  getAll(): Promise<IdentifiableCake[]> {
         try{
             const conn = await ConnectionManager.getConnection();
             await conn.run(UPDATE_CAKE, [
-                item.getId(),
                 item.getType(),
                 item.getFlavor(),
                 item.getFilling(),
@@ -146,8 +144,10 @@ async  getAll(): Promise<IdentifiableCake[]> {
                 item.getShape(),
                 item.getAllergies(),
                 item.getSpecialIngredients(),
-                item.getPackagingType()
+                item.getPackagingType(),
+                item.getId() // ID should be the last parameter for the WHERE clause
             ]);
+            logger.info(`Successfully updated cake with ID: ${item.getId()}`);
         }catch(error){
             logger.error("Failed to update cake of id %o %o", item.getId(), error as Error);
             throw new DbException("Failed to update cake of id" + item.getId(), error as Error);

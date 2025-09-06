@@ -1,23 +1,31 @@
-import { Database, Statement, open } from "sqlite";
-import sqlite3 from "sqlite3";
+import { Database, open } from "sqlite";
+import * as sqlite3 from "sqlite3";
 import config from "../../config";
 import logger from "../../util/logger";
 import { DbException } from "../../util/exceptions/repositoryException";
-export class ConnectionManager{
+import path from "path";
 
-
+export class ConnectionManager {
     private static db: Database | null = null;
-    private constructor(){}
+    
+    private constructor() {}
+    
     public static async getConnection(): Promise<Database> {
-        if (this.db==null) {
-            try{
-                this.db = await open({ 
-                    filename:  config.Storage.sqlite,
-                    driver: sqlite3.Database 
+        if (this.db == null) {
+            try {
+                // Ensure absolute path for SQLite file
+                const dbPath = path.resolve(process.cwd(), config.Storage.sqlite);
+                logger.info(`Opening SQLite database at: ${dbPath}`);
+                
+                this.db = await open({
+                    filename: dbPath,
+                    driver: sqlite3.Database
                 });
-            }catch (error: unknown) {
-                logger.error("Error opening database connection:", error as Error);
-                throw new DbException("Failed to open database connection",error as Error);
+                
+                logger.info("Database connection established successfully");
+            } catch (error: unknown) {
+                logger.error("Error opening database connection:", error);
+                throw new DbException("Failed to open database connection", error as Error);
             }
         }
         return this.db;

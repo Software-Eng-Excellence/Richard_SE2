@@ -96,5 +96,43 @@ export class PostgresToyMapper implements IMapper<PostgresToy, Toy> {
             quantity: data.getQuantity()
         };
     }
+}
 
+export class JsonIdentifiableToyRequestMapper implements IMapper<any, IdentifiableToy> {
+    map(data: any): IdentifiableToy {
+        // Handle both direct object and nested item structure
+        const itemData = data.item || data;
+        
+        // Generate an ID if none is provided
+        const id = data.id || `toy-${Date.now()}`;
+        
+        return IdentifiableToyBuilder.newBuilder()
+            .setToy(ToyBuilder.newBuilder()
+                .setType(itemData.name || "Generic Toy")
+                .setAgeGroup(parseInt(itemData.ageGroup) || 0)
+                .setBrand(itemData.brand || "")
+                .setMaterial(itemData.material || "")
+                .setBatteryRequired(!!itemData.batteryRequired)
+                .setEducational(itemData.category === "Educational")
+                .setPrice(parseFloat(data.price) || 0)
+                .setQuantity(parseInt(data.quantity) || 1)
+                .build())
+            .setId(id)
+            .build();
+    }
+
+    reverse(data: IdentifiableToy): any {
+        return {
+            id: data.getId(),
+            name: data.getType(),
+            ageGroup: data.getAgeGroup().toString(),
+            brand: data.getBrand(),
+            material: data.getMaterial(),
+            batteryRequired: data.getBatteryRequired(),
+            educational: data.getEducational(),
+            category: data.getEducational() ? "Educational" : "Recreational",
+            price: data.getPrice().toString(),
+            quantity: data.getQuantity().toString()
+        };
+    }
 }
