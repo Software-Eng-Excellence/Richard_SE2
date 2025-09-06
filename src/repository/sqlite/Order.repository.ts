@@ -106,26 +106,26 @@ export class OrderRepository implements IRepository<IIdentifiableOrderItem>, Ini
             //     return [];
             // }
             const orders = await conn.all<SQLiteOrder[]>(SELECT_ALL); // No parameters needed for SELECT_ALL
-           const bindOrders = orders.map((order) => {
-               const item = items.find((item) => item.getId() === order.item_id);
-               if(!item){
-                 
-                   throw new Error("Item of id "+order.item_id+" not found for order id ");
-               }
-               return { order, item};
-           });
+            
+            // Filter out orders with missing items instead of throwing an error
+            const bindOrders = orders
+              .map((order: SQLiteOrder) => {
+                const item = items.find((item) => item.getId() === order.item_id);
+               
+                return { order, item };
+              })
+              .filter(binding => binding !== null); // Filter out null entries
 
-
-           const mapper = new SQLiteOrderMapper();
-           const IdentifiableOrders=bindOrders.map(({order,item})=> {
-            return mapper.map({data :order,item});
-           });
-          return IdentifiableOrders;
+            const mapper = new SQLiteOrderMapper();
+            const identifiableOrders = bindOrders.map(({order, item}) => {
+              return mapper.map({data: order, item: item!});
+            });
+            
+            return identifiableOrders;
         }catch(error){
-            logger.error("Failed to get all orders %o",error as Error)
+            logger.error("Failed to get all orders %o", error as Error)
             throw new DbException("Failed to get all orders", error as Error);
         }
-
     }
     async update(item: IIdentifiableOrderItem): Promise<void> {
         let conn;

@@ -1,4 +1,4 @@
-import  {AnalyticsService}  from "../services/analytics.service";
+import  {AnalyticsService}  from "../services/AnalyticsService";
 import { IIdentifiableOrderItem } from "../model/IOrder";
 import { RepositoryFactory } from "../repository/Repository.factory";
 import { ItemCategory } from "../model/IItem";

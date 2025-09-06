@@ -14,7 +14,7 @@ export class ConnectionManager {
         if (this.db == null) {
             try {
                 // Ensure absolute path for SQLite file
-                const dbPath = path.resolve(process.cwd(), config.Storage.sqlite);
+                const dbPath = config.Storage.sqlite;
                 logger.info(`Opening SQLite database at: ${dbPath}`);
                 
                 this.db = await open({
