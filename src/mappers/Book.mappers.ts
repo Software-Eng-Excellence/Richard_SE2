@@ -93,3 +93,41 @@ export class PostgresBookMapper implements IMapper<PostgresBook, IdentifiableBoo
         };
     }
 }
+
+export class JsonIdentifiableBookRequestMapper implements IMapper<any, IdentifiableBook> {
+    map(data: any): IdentifiableBook {
+        // Handle both direct object and nested item structure
+        const itemData = data.item || data;
+        
+        // Generate an ID if none is provided
+        const id = data.id || `book-${Date.now()}`;
+        
+        return IdentifiableBookBuilder.newBuilder()
+            .setBook(BookBuilder.newBuilder()
+                .setBookTitle(itemData.title)
+                .setAuthor(itemData.author)
+                .setGenre(itemData.genre)
+                .setFormat(itemData.format)
+                .setLanguage(itemData.language)
+                .setPublisher(itemData.publisher)
+                .setSpecialEdition(itemData.ISBN || "")
+                .setPackaging(itemData.format || "Standard")
+                .build())
+            .setId(id)
+            .build();
+    }
+
+    reverse(data: IdentifiableBook): any {
+        return {
+            id: data.getId(),
+            title: data.getBookTitle(),
+            author: data.getAuthor(),
+            genre: data.getGenre(),
+            format: data.getFormat(),
+            language: data.getLanguage(),
+            publisher: data.getPublisher(),
+            ISBN: data.getSpecialEdition(),
+            packaging: data.getPackaging()
+        };
+    }
+}

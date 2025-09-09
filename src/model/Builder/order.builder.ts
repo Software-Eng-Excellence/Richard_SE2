@@ -1,5 +1,4 @@
 import { IIdentifiableItem, IItem } from "../IItem";
-import { IIdentifiableOrderItem } from "../IOrder";
 import { IdentifiableOrderItem, Order } from "../Order.model";
 export class OrderBuilder{
     private items!: IItem;
@@ -75,7 +74,7 @@ export class IdentifiableOrderItemBuilder{
          return this;
      }
 
-     build(): IIdentifiableOrderItem {
+     build(): IdentifiableOrderItem {
          const required=[
              this.items,
              this.order

@@ -64,7 +64,18 @@ export class BookRepository implements IRepository<IdentifiableBook>,Initializab
             if (result.rows.length === 0) {
                 throw new ItemNotFoundException(`Book with ID ${id} not found`);    
             }
-            return result.rows[0];
+            const bookData = result.rows[0];
+            return new IdentifiableBook(
+                bookData.id,
+                bookData.booktitle,
+                bookData.author,
+                bookData.genre,
+                bookData.format,
+                bookData.language,
+                bookData.publisher,
+                bookData.specialedition,
+                bookData.packaging
+            );
         }catch(error){
             logger.error("Failed to get book", error as Error);
             throw new DbException("Failed to get book", error as Error);
@@ -74,7 +85,17 @@ export class BookRepository implements IRepository<IdentifiableBook>,Initializab
        try{
         const conn = await ConnectionManager.getConnection();
         const result = await conn.query(SELECT_ALL);
-        return result.rows;
+        return result.rows.map(bookData => new IdentifiableBook(
+            bookData.id,
+            bookData.booktitle,
+            bookData.author,
+            bookData.genre,
+            bookData.format,
+            bookData.language,
+            bookData.publisher,
+            bookData.specialedition,
+            bookData.packaging
+        ));
        }catch(error){
            logger.error("Failed to get all books", error as Error);
            throw new DbException("Failed to get all books", error as Error);

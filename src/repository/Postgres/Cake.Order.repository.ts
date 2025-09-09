@@ -44,7 +44,7 @@ frostingType = $6, frostingFlavor = $7, decorationType = $8, decorationColor = $
 shape = $11, allergies = $12, specialIngredients = $13, packagingType = $14 
 WHERE id = $15`;
 
-export class CakeRepository implements IRepository<IdentifiableCake>, Initializable {
+export class CakeRepositoryPostgress implements IRepository<IdentifiableCake>, Initializable {
    
     async init(): Promise<void> {
         try {

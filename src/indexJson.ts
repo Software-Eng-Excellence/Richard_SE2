@@ -1,12 +1,8 @@
-import { JSONBookMapper } from './mappers/Book.mappers';
-import { JSONOrderMapper } from './mappers/OrderJson.mapper';
+  import { DBMode } from './config/type';
 import { BookBuilder, IdentifiableBookBuilder } from './model/Builder/book.builder';
 import { IdentifiableOrderItemBuilder, OrderBuilder } from './model/Builder/order.builder';
 import { ItemCategory } from './model/IItem';
-import { parseJSON } from './parsers/jsonParser';
-import { BookRepository } from './repository/Postgres/Book.Order.repository';
-import { OrderRepositoryPostgres } from './repository/Postgres/Order.repository';
-import { DBMode, RepositoryFactory } from './repository/Repository.factory';
+import {  RepositoryFactory } from './repository/Repository.factory';
 
 
 // export async function main1() {
@@ -25,9 +21,7 @@ import { DBMode, RepositoryFactory } from './repository/Repository.factory';
 
 
 
-  // main1();
-
-
+    // main1();
 export async  function JsonPostgres() {
     const dbOrder =await RepositoryFactory.create(DBMode.POSTGRES, ItemCategory.BOOK);
 

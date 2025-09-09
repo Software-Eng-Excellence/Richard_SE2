@@ -9,7 +9,7 @@ import { SQLiteOrder, SQLiteOrderMapper } from "../../mappers/Order.mapper";
 
 const CREATE_TABLE = `
       CREATE TABLE IF NOT EXISTS "order" (
-        id TEXT PRIMARY KEY AUTOINCREMENT,
+        id TEXT PRIMARY KEY,
         quantity INTEGER NOT NULL,
         price INTEGER NOT NULL,
         item_category TEXT NOT NULL,
@@ -26,12 +26,14 @@ export class OrderRepository implements IRepository<IIdentifiableOrderItem>, Ini
     constructor(private readonly itemRepository:IRepository<IIdentifiableItem> & Initializable) {
 
     }
+  
    
    
-    async init() {
+    async init():Promise<void> {
         try {
         const conn = await ConnectionManager.getConnection();
         await conn.exec(CREATE_TABLE);
+        logger.info("Order table initialized or already exists");
         await this.itemRepository.init();
         } catch (error: unknown) {
             logger.error("Error initializing order table", error as Error);
@@ -151,8 +153,8 @@ async delete(id: id): Promise<void> {
             conn = await ConnectionManager.getConnection();
            
             await conn.exec("BEGIN TRANSACTION");
-            
-            const item_id = await this.itemRepository.delete(id); 
+            const ids = (await (this.get(id))).getItem().getId();
+            const item_id = await this.itemRepository.delete(ids); 
             await conn.run(DELETE_BY_ID,[id])
             await conn.exec("COMMIT");
             

@@ -3,6 +3,7 @@ import { IMapper } from "./IMapper";
 import {IdentifiableOrderItemBuilder, OrderBuilder} from "../model/Builder/order.builder";
 import { IIdentifiableItem, IItem } from "../model/IItem";
 import { IdentifiableOrderItem } from "../model/Order.model";
+
 export class CSVOrderMapper implements IMapper<string[],IOrder>{
    
     constructor(private itemMapper: IMapper<string[], IItem>) {
@@ -102,4 +103,33 @@ export class PostgresOrderMapper implements IMapper<{data:PostgresOrder,item:IId
            item: data.getItem()
        }
     }
+}
+
+export class JsonRequestOrderMapper implements IMapper<any,IdentifiableOrderItem>{
+     constructor(private readonly itemMapper: IMapper<any,IIdentifiableItem>){}
+     
+   map(data: any): IdentifiableOrderItem {
+       // Map the item using the appropriate mapper
+       const item = this.itemMapper.map(data);
+       
+       // Generate an ID if none is provided
+       const id = data.id || `order-${Date.now()}`;
+       
+       // Build the order with all available data
+       const order = OrderBuilder.newBuilder()
+           .setId(id)
+           .setPrice(data.price || 0)
+           .setQuantity(data.quantity || 1)
+           .setItems(item)
+           .build();
+
+       return IdentifiableOrderItemBuilder.newBuilder().setOrder(order).setItems(item).build();
+   }
+
+   reverse(data: IdentifiableOrderItem): any {
+       return {
+           category: data.getItem().getCategory(),
+           ...data
+       };
+   }
 }

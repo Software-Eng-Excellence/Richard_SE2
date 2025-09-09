@@ -4,16 +4,20 @@
   "type": "commonjs",
   "scripts": {
     "dev": "ts-node-dev --respawn src/indexCSV.ts",
-    "test": "jest"
+    "analytics": "ts-node-dev --respawn src/analytics-api.ts",
+    "test": "jest",
+    "test:analytics": "jest src/tests/analytics.*"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.3.0",
     "@types/pg": "^8.15.5",
+    "@types/sqlite3": "^3.1.11",
     "@types/winston": "^2.4.4",
     "@types/xml2js": "^0.4.14",
     "jest": "^30.0.5",
-    "pg": "^8.16.3",
     "ts-jest": "^29.4.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.2"
@@ -21,9 +25,14 @@
   "dependencies": {
     "-": "^0.0.1",
     "@types/dotenv": "^6.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "pg": "^8.16.3",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7",
+    "sqlite3": "^5.0.2",
+    "uuid": "^11.1.0",
     "winston": "^3.17.0",
     "xml2js": "^0.6.2"
   }

@@ -180,3 +180,57 @@ export class PostgresCakeMapper implements IMapper<PostgresCake, IdentifiableCak
         };
     }
 }
+
+
+
+
+
+export class JsonIdentifiableCakeRequestMapper implements IMapper<any, IdentifiableCake> {
+    map(data: any): IdentifiableCake {
+        // Handle both direct object and nested item structure
+        const itemData = data.item || data;
+        
+        // Generate an ID if none is provided
+        const id = data.id || `cake-${Date.now()}`;
+        
+        return IdentifiableCakeBuilder.newBuilder()
+            .setCake(CakeBuilder.newBuilder()
+                .setType(itemData.type)
+                .setFlavor(itemData.flavor)
+                .setFilling(itemData.filling)
+                .setSize(itemData.size)
+                .setLayers(itemData.layers)
+                .setFrostingType(itemData.frostingType)
+                .setFrostingFlavor(itemData.frostingFlavor)
+                .setDecorationType(itemData.decorationType)
+                .setDecorationColor(itemData.decorationColor)
+                .setCustomMessage(itemData.customMessage)
+                .setShape(itemData.shape)
+                .setAllergies(itemData.allergies)
+                .setSpecialIngredients(itemData.specialIngredients)
+                .setPackagingType(itemData.packagingType || "Standard")
+                .build())
+            .setId(id)
+            .build();
+    }
+
+    reverse(data: IdentifiableCake): any {
+        return {
+            id: data.getId(),
+            type: data.getType(),
+            flavor: data.getFlavor(),
+            filling: data.getFilling(),
+            size: data.getSize(),
+            layers: data.getLayers(),
+            frostingType: data.getFrostingType(),
+            frostingFlavor: data.getFrostingFlavor(),
+            decorationType: data.getDecorationType(),
+            decorationColor: data.getDecorationColor(),
+            customMessage: data.getCustomMessage(),
+            shape: data.getShape(),
+            allergies: data.getAllergies(),
+            specialIngredients: data.getSpecialIngredients(),
+            packagingType: data.getPackagingType()
+        };
+    }
+}
