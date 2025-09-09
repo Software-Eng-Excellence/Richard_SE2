@@ -88,21 +88,23 @@ export class CakeBuilder {
             this.type,
             this.flavor,
             this.filling,
-            this.size,
+            this.size,  
             this.layers,
             this.frostingType,
             this.frostingFlavor,
             this.decorationType,
             this.decorationColor,
+            this.customMessage,
             this.shape,
-            this.PackagingType,
-           
+            this.Allergies,
+            this.SpecialIngredients,
+            this.PackagingType
         ];
-        for (const prop of required) {
-            if (prop === undefined || prop === null) {
-                throw new Error("Missing required cake property");
-            }
-        }
+        // for (const prop of required) {
+        //     if (!prop) {
+        //         throw new Error("Missing required cake property builders cake ");
+        //     }
+        // }
         return new Cake(
           
             this.type,
@@ -149,8 +151,8 @@ export class IdentifiableCakeBuilder extends CakeBuilder {
 
    build(): IdentifiableCake {
     if(!this.id || !this.cake) {
-        logger.error("Missing required properties");
-        throw new Error("Missing required properties");
+        logger.error("Missing required properties cake or id");
+        throw new Error("Missing required properties cake or id");
     }
     return new IdentifiableCake(
         this.id,

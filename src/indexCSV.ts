@@ -39,7 +39,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 if(err instanceof HttpException) {
   const httpException = err as HttpException;
-  logger.error("%s [%d] \"%s\" %o", httpException.name, httpException.status, httpException.message, httpException.details || {});
+  logger.error("%s [%d] \" %s\" %o", httpException.name, httpException.status, httpException.message, httpException.details || {});
   res.status(httpException.status).json({ message: httpException.message, details: httpException.details || undefined});
 
 }

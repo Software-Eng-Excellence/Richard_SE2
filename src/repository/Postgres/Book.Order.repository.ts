@@ -99,6 +99,7 @@ export class BookRepository implements IRepository<IdentifiableBook>,Initializab
        }catch(error){
            logger.error("Failed to get all books", error as Error);
            throw new DbException("Failed to get all books", error as Error);
+           return [];
        }
     }
     async update(item: IdentifiableBook): Promise<void> {

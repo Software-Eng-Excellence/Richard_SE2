@@ -109,17 +109,32 @@ export class JsonRequestOrderMapper implements IMapper<any,IdentifiableOrderItem
      constructor(private readonly itemMapper: IMapper<any,IIdentifiableItem>){}
      
    map(data: any): IdentifiableOrderItem {
+       // Log incoming data for debugging
+       console.log("JsonRequestOrderMapper received:", JSON.stringify(data, null, 2));
+       
+       // Check for and handle nested identifiableItem structure
+       let itemData = data;
+       if (data.identifiableItem) {
+           console.log("Found nested identifiableItem structure");
+           // Create a merged object with properties from both levels
+           itemData = {
+               ...data,
+               ...data.identifiableItem
+           };
+           console.log("Merged data:", JSON.stringify(itemData, null, 2));
+       }
+       
        // Map the item using the appropriate mapper
-       const item = this.itemMapper.map(data);
+       const item = this.itemMapper.map(itemData);
        
        // Generate an ID if none is provided
-       const id = data.id || `order-${Date.now()}`;
+       const id = itemData.id || `order-${Date.now()}`;
        
        // Build the order with all available data
        const order = OrderBuilder.newBuilder()
            .setId(id)
-           .setPrice(data.price || 0)
-           .setQuantity(data.quantity || 1)
+           .setPrice(itemData.price)
+           .setQuantity(itemData.quantity)
            .setItems(item)
            .build();
 

@@ -8,8 +8,8 @@ export class CSVCakeMapper implements IMapper<String[],Cake> {
     map(row: string[]): Cake {
         const [
              type, flavor, filling, size, layers, frostingType, frostingFlavor,
-            decorationType, decorationColor, customMessage, shape, Allergies,
-            SpecialIngredients, PackagingType
+            decorationType, decorationColor, customMessage, shape, allergies,
+           specialIngredients, packagingType
         ] = row;
         
         return CakeBuilder.newBuilder()
@@ -25,9 +25,9 @@ export class CSVCakeMapper implements IMapper<String[],Cake> {
             .setDecorationColor(decorationColor)
             .setCustomMessage(customMessage)
             .setShape(shape)
-            .setAllergies(Allergies)
-            .setSpecialIngredients(SpecialIngredients)
-            .setPackagingType(PackagingType)
+            .setAllergies(allergies)
+            .setSpecialIngredients(specialIngredients)
+            .setPackagingType(packagingType)
             .build();
     }
     reverse(data: Cake): string[] {
@@ -187,28 +187,38 @@ export class PostgresCakeMapper implements IMapper<PostgresCake, IdentifiableCak
 
 export class JsonIdentifiableCakeRequestMapper implements IMapper<any, IdentifiableCake> {
     map(data: any): IdentifiableCake {
-        // Handle both direct object and nested item structure
+        // Get data from nested item or from root object
         const itemData = data.item || data;
+        
+        // Log the itemData for debugging
+        console.log("Mapping cake data:", JSON.stringify(itemData, null, 2));
+        
+        // Check for required fields
+        // if (!itemData.type) {
+        //     console.error("Missing required field 'type' in cake data");
+        //     throw new Error("Cake type is required");
+        // }
         
         // Generate an ID if none is provided
         const id = data.id || `cake-${Date.now()}`;
         
+        // Apply default values for required fields to prevent NULL values
         return IdentifiableCakeBuilder.newBuilder()
             .setCake(CakeBuilder.newBuilder()
-                .setType(itemData.type)
-                .setFlavor(itemData.flavor)
-                .setFilling(itemData.filling)
-                .setSize(itemData.size)
-                .setLayers(itemData.layers)
-                .setFrostingType(itemData.frostingType)
-                .setFrostingFlavor(itemData.frostingFlavor)
-                .setDecorationType(itemData.decorationType)
-                .setDecorationColor(itemData.decorationColor)
-                .setCustomMessage(itemData.customMessage)
-                .setShape(itemData.shape)
-                .setAllergies(itemData.allergies)
-                .setSpecialIngredients(itemData.specialIngredients)
-                .setPackagingType(itemData.packagingType || "Standard")
+                .setType(itemData.type || "Standard") // Default value for type
+                .setFlavor(itemData.flavor || "Vanilla") // Default value for flavor
+                .setFilling(itemData.filling || "None") // Default value for filling
+                .setSize(itemData.size || 8) // Default value for size
+                .setLayers(itemData.layers || 1) // Default value for layers
+                .setFrostingType(itemData.frostingType || "None") // Default value for frostingType
+                .setFrostingFlavor(itemData.frostingFlavor || "None") // Default value for frostingFlavor
+                .setDecorationType(itemData.decorationType || "None") // Default value for decorationType
+                .setDecorationColor(itemData.decorationColor || "None") // Default value for decorationColor
+                .setCustomMessage(itemData.customMessage || "") // Default value for customMessage
+                .setShape(itemData.shape || "Round") // Default value for shape
+                .setAllergies(itemData.allergies || "None") // Default value for allergies
+                .setSpecialIngredients(itemData.specialIngredients || "None") // Default value for specialIngredients
+                .setPackagingType(itemData.packagingType || "Standard") // Default value for packagingType
                 .build())
             .setId(id)
             .build();

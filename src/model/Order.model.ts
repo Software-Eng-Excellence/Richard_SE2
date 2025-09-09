@@ -40,11 +40,11 @@ export class Order implements IOrder {
 }
 
 export class IdentifiableOrderItem implements IIdentifiableItem {
-  private identifiableItem: IIdentifiableItem;
+ 
   private price: number;
   private quantity: number;
   private id: string;
-
+ private identifiableItem: IIdentifiableItem;
   constructor(identifiableItem: IIdentifiableItem, price: number, quantity: number, id: string) {
     this.price = price;
     this.quantity = quantity;
