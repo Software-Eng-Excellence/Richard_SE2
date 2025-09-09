@@ -3,7 +3,11 @@ import { OrderManagementService } from "../services/OrderManagement.service";
 import { IdentifiableOrderItem } from "../model/Order.model";
 import { JsonRequestFactory } from "../mappers";
 import { BadRequestException } from "../util/exceptions/http/BadRequestException";
+
 import { ItemCategory } from "../model/IItem";
+
+import { DBMode } from "../config/type";
+
 
 export class OrderController {
     constructor(private readonly OrderService: OrderManagementService) { }
@@ -77,6 +81,7 @@ export class OrderController {
                 throw new BadRequestException("Order category is required", { idNotDefined: true });
             }
 
+
         
              const orderData: IdentifiableOrderItem = JsonRequestFactory.create(req.body.category).map(req.body);
 
@@ -103,6 +108,19 @@ export class OrderController {
             console.error("Controller error in updateOrder:", error);
             if (error instanceof BadRequestException) {
                 throw error;
+
+            
+            const orderData: IdentifiableOrderItem = JsonRequestFactory.create(req.body.category,DBMode.SQLITE).map(req.body);
+            if (!orderId || !orderData) {
+                throw new BadRequestException("Order ID and data are required",{orderNotFound:true});
+            }
+            if(orderData.getId() !== orderId){ 
+                throw new BadRequestException("Order ID  in body is different from id in param",{
+                    idNotSame:true,
+                    idInParam:orderId,
+                    idInBody:orderData.getId()
+                });
+
             }
             throw new BadRequestException("Internal error updating order", {
                 error: error instanceof Error ? error.message : 'Unknown error'
