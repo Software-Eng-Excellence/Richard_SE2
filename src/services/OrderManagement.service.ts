@@ -66,39 +66,33 @@ export class OrderManagementService {
                 this.validateOrder(order);
             }
             
-            // Check if the order exists in any repository
-            let existingOrder = null;
-            try {
-                existingOrder = await this.getOrder(order.getId());
+          
+        
+               const existingOrder = await this.getOrder(order.getId());
                 logger.info(`Found existing order with id ${order.getId()} in category ${existingOrder.getItem().getCategory()}`);
-            } catch (error) {
-                logger.error(`Order with id ${order.getId()} not found for update`, error);
-                throw new ServiceException(`Order with id ${order.getId()} not found`);
-            }
-            
+                if (!existingOrder) {
+                    throw new ServiceException(`Order with id ${order.getId()} does not exist`);
+                }
+
             // Use the category from the order being updated
             const category = order.getItem().getCategory();
-            logger.info(`Updating order with id ${order.getId()} in category ${category}`);
+           
             
-            try {
+        
                 const repo = await this.getRepo(category);
                 await repo.update(order);
                 logger.info(`Successfully updated order with id ${order.getId()}`);
                 
                 // Return the updated order
                 return order;
-            } catch (error) {
-                logger.error(`Error in repository update for order ${order.getId()}:`, error);
-                throw new ServiceException(`Repository error updating order: ${error instanceof Error ? error.message : 'Unknown error'}`);
-            }
+            
         } catch (error) {
-            if (error instanceof ServiceException) {
-                throw error;
-            }
-            logger.error(`Unexpected error updating order with id ${order.getId()}:`, error);
-            throw new ServiceException(`Failed to update order: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            logger.error(`Error in repository update for order ${order.getId()}:`, error);
+            throw new ServiceException(`Repository error updating order: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     }
+    
+    
     //Delete Order
     public async deleteOrder(id:string, category:ItemCategory): Promise<void> {
        const categories = Object.values(ItemCategory);

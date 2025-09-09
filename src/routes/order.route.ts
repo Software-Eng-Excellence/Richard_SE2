@@ -11,12 +11,12 @@ const route = Router();
 
 
 
-// setup paths and methodes
+
 route.route('/')
     .get(asyncHandler(orderController.getAllOrders.bind(orderController)))
     .post(asyncHandler(orderController.createOrder.bind(orderController)));
 
-// Analytics routes - must be defined BEFORE the /:id route
+
 route.route('/revenue')
     .get(asyncHandler(analyticsController.getRevenue.bind(analyticsController)));
 route.route('/revenue/:type')
@@ -26,7 +26,6 @@ route.route('/count')
 route.route('/count/:type')
     .get(asyncHandler(analyticsController.getOrderCountBySpecificType.bind(analyticsController)));
 
-// Order routes with dynamic parameters - must come AFTER more specific routes
 route.route("/:id")
     .get(asyncHandler(orderController.getOrder.bind(orderController)))
     .put(asyncHandler(orderController.updateOrder.bind(orderController)))

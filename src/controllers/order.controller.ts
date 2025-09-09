@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { OrderManagementService } from "../services/OrderManagement.service";
-
 import { IdentifiableOrderItem } from "../model/Order.model";
 import { JsonRequestFactory } from "../mappers";
 import { BadRequestException } from "../util/exceptions/http/BadRequestException";
+import { ItemCategory } from "../model/IItem";
 
 export class OrderController {
     constructor(private readonly OrderService: OrderManagementService) { }
@@ -17,20 +17,23 @@ export class OrderController {
             }
         
 
-            const category = req.body.category.toLowerCase();
-            // if (!['cake', 'book', 'toy'].includes(category)) {
-            //     throw new BadRequestException("Invalid category. Must be one of: cake, book, toy", {
-            //         invalidCategory: true,
-            //         allowedCategories: ['cake', 'book', 'toy']
-            //     });
+        const category = req.body.category.toLowerCase();
+        if (!['cake', 'book', 'toy'].includes(category)) {
+            throw new BadRequestException("Invalid category. Must be one of: cake, book, toy", {
+                invalidCategory: true,
+                allowedCategories: ItemCategory
+            });
+        }
 
-            const order: IdentifiableOrderItem = JsonRequestFactory.create(category).map(req.body);
-
-                const newOrder = await this.OrderService.createOrder(order);
+        const order: IdentifiableOrderItem = JsonRequestFactory.create(category).map(req.body);
+        const newOrder = await this.OrderService.createOrder(order);
+        res.status(201).json(newOrder);
                 res.status(201).json(newOrder);
-        
-            
-        } catch (error) {
+
+
+        }
+    
+        catch (error) {
 
             throw new BadRequestException("Internal error creating order", {
                 error: error instanceof Error ? error.message : "Unknown error"
@@ -41,13 +44,13 @@ export class OrderController {
  
     public async getOrder(req: Request, res: Response): Promise<void> {
         
-        const Id = req.params.id;
+        const id = req.params.id;
 
-        if (!Id) {
+        if (!id) {
             throw new Error("Order ID is required");
 
         }
-        const order = await this.OrderService.getOrder(Id);
+        const order = await this.OrderService.getOrder(id);
         if (!order) {
             throw new BadRequestException("Order not found", { idNotDefined: true });
         }
@@ -75,27 +78,27 @@ export class OrderController {
             }
 
         
-                const orderData: IdentifiableOrderItem = JsonRequestFactory.create(req.body.category).map(req.body);
+             const orderData: IdentifiableOrderItem = JsonRequestFactory.create(req.body.category).map(req.body);
 
-                if (!orderId || !orderData) {
+             if (!orderId || !orderData) {
                     throw new BadRequestException("Order ID and data are required", { orderNotFound: true });
                 }
 
                 // Ensure IDs match
-                if (orderData.getId() !== orderId) {
+            if (orderData.getId() !== orderId) {
                     throw new BadRequestException("Order ID in body is different from id in param", {
                         idNotSame: true,
                         idInParam: orderId,
                         idInBody: orderData.getId()
                     });
-                }
+     }
 
               
                
 
-                const updatedOrder = await this.OrderService.updateOrder(orderData);
+     const updatedOrder = await this.OrderService.updateOrder(orderData);
                 res.status(200).json(updatedOrder);
-           
+
         } catch (error) {
             console.error("Controller error in updateOrder:", error);
             if (error instanceof BadRequestException) {

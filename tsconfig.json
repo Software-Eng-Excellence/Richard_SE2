@@ -11,5 +11,5 @@
     "outDir": "dist",
     "types": ["jest", "node"]
   },
-  "include": ["src/**/*", "jest.config.js"]
+  "include": ["src/**/*", "jest.config.js", "docs/Designe Pattern"]
 }
