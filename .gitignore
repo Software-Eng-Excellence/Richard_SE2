@@ -6,4 +6,4 @@ dist/
 
 # Jest coverage folder
 coverage/
-
+logs/

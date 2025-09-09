@@ -4,6 +4,7 @@ import { OrderManagementService } from "../services/OrderManagement.service";
 import {  IdentifiableOrderItem } from "../model/Order.model";
 import { JsonRequestFactory } from "../mappers";
 import { BadRequestException } from "../util/exceptions/http/BadRequestException";
+import { DBMode } from "../config/type";
 
 export class OrderController{
     constructor(private  readonly OrderService: OrderManagementService) {}
@@ -61,7 +62,7 @@ export class OrderController{
                 throw new BadRequestException("Order category is required", { idNotDefined: true });
             }
             
-            const orderData: IdentifiableOrderItem = JsonRequestFactory.create(req.body.category).map(req.body);
+            const orderData: IdentifiableOrderItem = JsonRequestFactory.create(req.body.category,DBMode.SQLITE).map(req.body);
             if (!orderId || !orderData) {
                 throw new BadRequestException("Order ID and data are required",{orderNotFound:true});
             }
